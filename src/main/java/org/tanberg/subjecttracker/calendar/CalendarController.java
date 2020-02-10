@@ -13,6 +13,8 @@ import java.util.Locale;
 
 public class CalendarController {
 
+    private static final String[] DAYS = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+
     private int year;
     private int month;
 
@@ -54,12 +56,21 @@ public class CalendarController {
         this.year = year;
         this.month = month;
 
-        this.monthTitle.setText(this.getMonthName());
+        this.monthTitle.setText(this.getMonthName() + " " + this.year);
         this.grid.getChildren().clear();
 
+        for (int i = 0; i < 7; i++) {
+            this.grid.add(this.getLabel(DAYS[i]), i, 0);
+        }
+
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setMinimalDaysInFirstWeek(1);
         calendar.set(Calendar.YEAR, this.year);
         calendar.set(Calendar.MONTH, this.month);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        boolean startsMonday = calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+
         calendar.add(Calendar.MONTH, -1);
 
         int prevDaysPerMonth = this.getLengthOfMonth(calendar);
@@ -86,7 +97,7 @@ public class CalendarController {
                 controller.setTime(this.year, this.month - 1, day);
                 controller.disable();
 
-                this.grid.add(pane, column, 0);
+                this.grid.add(pane, column, 1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -114,14 +125,14 @@ public class CalendarController {
                 CalendarPaneController controller = loader.getController();
                 controller.setTime(this.year, this.month, day);
 
-                this.grid.add(pane, column, week - 1);
+                this.grid.add(pane, column, week + (startsMonday ? 1 : 0));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         int startingWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-        int requiredDaysOfNextMonth = 8 - dayOfWeek + (6 - week) * 7;
+        int requiredDaysOfNextMonth = 8 - dayOfWeek + ((startsMonday ? 5 : 6) - week) * 7;
         calendar.add(Calendar.MONTH, 1);
 
         for (int day = 0; day < requiredDaysOfNextMonth; day++) {
@@ -133,7 +144,7 @@ public class CalendarController {
             }
 
             int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-            int row = (week - 1) + (currentWeek - startingWeek);
+            int row = (week + (startsMonday ? 1 : 0)) + (currentWeek - startingWeek);
 
             try {
                 FXMLLoader loader = new FXMLLoader(this.getClass().getResource("calendarpane.fxml"));
@@ -151,6 +162,21 @@ public class CalendarController {
     }
 
     // Internals
+
+    private AnchorPane getLabel(String day) {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("columnlabel.fxml"));
+
+        try {
+            AnchorPane label = loader.load();
+            LabelController controller = loader.getController();
+            controller.setText(day);
+
+            return label;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     private String getMonthName() {
         Calendar calendar = Calendar.getInstance();

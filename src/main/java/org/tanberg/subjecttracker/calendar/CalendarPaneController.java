@@ -12,9 +12,6 @@ public class CalendarPaneController {
     @FXML
     private Text dateDisplay;
 
-    @FXML
-    private Text activityDisplay;
-
     private boolean enabled = true;
     private int year = -1;
     private int month = -1;
@@ -22,18 +19,14 @@ public class CalendarPaneController {
 
     @FXML
     public void initialize() {
-        if (this.month == -1) {
-            return;
-        }
-
-        this.dateDisplay.setText(String.valueOf(this.date + 1));
+        this.background.setStyle("-fx-background-color: rgba(126,255,0,0.35)");
     }
 
     public void disable() {
         this.enabled = false;
 
-        this.background.setStyle("-fx-background-color: rgb(165,165,165)");
-        this.dateDisplay.setOpacity(0.5);
+        this.background.setStyle("-fx-background-color: rgba(165,165,165,0.25)");
+        this.dateDisplay.setOpacity(0.35);
     }
 
     public void setTime(int year, int month, int date) {

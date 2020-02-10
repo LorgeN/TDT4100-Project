@@ -7,14 +7,15 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.calendar.CalendarPaneController">
    <children>
-      <Pane fx:id="background" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <AnchorPane prefHeight="10.0" prefWidth="45.36328125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fx:id="dateDisplay" fill="#000000cd" layoutX="5.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875">
-               <font>
-                  <Font name="Calibri" size="10.0" />
-               </font></Text>
-            <Text fx:id="activityDisplay" layoutX="3.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200.0" />
+            <Pane fx:id="background" prefHeight="10.0" prefWidth="45.5" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
          </children>
-      </Pane>
+      </AnchorPane>
+      <Text fx:id="dateDisplay" fill="#ffffffcc" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
