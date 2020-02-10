@@ -2,30 +2,30 @@ package org.tanberg.subjecttracker;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Tab;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import org.tanberg.subjecttracker.calendar.CalendarController;
+import org.tanberg.subjecttracker.gui.calendar.CalendarController;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class ParentController {
 
     @FXML
-    private Tab calendarTab;
-
-    @FXML
-    private Tab overviewPane;
+    private SplitPane contentPane;
 
     @FXML
     public void initialize() throws IOException {
-        URL resource = this.getClass().getResource("calendar/calendar.fxml");
-        FXMLLoader loader = new FXMLLoader(resource);
-        AnchorPane calendarPane = loader.load();
+        FXMLLoader calendarLoader = new FXMLLoader(this.getClass().getResource("gui/calendar/calendar.fxml"));
+        AnchorPane calendarPane = calendarLoader.load();
 
-        CalendarController controller = loader.getController();
-        controller.setTime(2020, 0);
+        FXMLLoader subjectListLoader = new FXMLLoader(this.getClass().getResource("gui/subject/subjectlistview.fxml"));
+        AnchorPane subjectListPane = subjectListLoader.load();
 
-        this.calendarTab.setContent(calendarPane);
+        CalendarController controller = calendarLoader.getController();
+        controller.setTimeNow();
+
+        this.contentPane.getItems().add(subjectListPane);
+        this.contentPane.getItems().add(calendarPane);
+        this.contentPane.setDividerPosition(0, 0.3);
     }
 }

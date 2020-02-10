@@ -1,9 +1,9 @@
-package org.tanberg.subjecttracker.calendar;
+package org.tanberg.subjecttracker.gui.calendar;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
-public class LabelController {
+public class CalendarLabelController {
 
     @FXML
     private Text text;

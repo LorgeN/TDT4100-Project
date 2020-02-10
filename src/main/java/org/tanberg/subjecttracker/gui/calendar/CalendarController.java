@@ -1,4 +1,4 @@
-package org.tanberg.subjecttracker.calendar;
+package org.tanberg.subjecttracker.gui.calendar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +50,11 @@ public class CalendarController {
         }
 
         this.setTime(year, month);
+    }
+
+    public void setTimeNow() {
+        Calendar calendar = Calendar.getInstance();
+        this.setTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
     }
 
     public void setTime(int year, int month) {
@@ -168,7 +173,7 @@ public class CalendarController {
 
         try {
             AnchorPane label = loader.load();
-            LabelController controller = loader.getController();
+            CalendarLabelController controller = loader.getController();
             controller.setText(day);
 
             return label;
