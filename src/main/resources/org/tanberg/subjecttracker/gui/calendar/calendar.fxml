@@ -33,14 +33,14 @@
                         </StackPane>
                      </center>
                      <left>
-                        <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#onPreviousMonth" prefWidth="175.0" ripplerFill="BLACK" text="&lt; Previous Month" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="previousButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPreviousMonth" prefWidth="175.0" ripplerFill="BLACK" text="Previous" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
                      </left>
                      <right>
-                        <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#onNextMonth" prefWidth="175.0" ripplerFill="BLACK" text="Next Month &gt;" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="nextButton" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#onNextMonth" prefWidth="175.0" ripplerFill="BLACK" text="Next" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>

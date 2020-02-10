@@ -3,6 +3,9 @@ package org.tanberg.subjecttracker.gui.subject;
 import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.subject.Subject;
@@ -16,7 +19,14 @@ public class SubjectListController {
     private JFXListView<AnchorPane> list;
 
     @FXML
+    private Button addButton;
+
+    @FXML
     public void initialize() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        Image image = new Image(classLoader.getResourceAsStream("org/tanberg/subjecttracker/icons/plus.png"));
+        this.addButton.setGraphic(new ImageView(image));
+
         this.list.setExpanded(true);
 
         SubjectManager manager = Manager.getInstance().getSubjectManager();

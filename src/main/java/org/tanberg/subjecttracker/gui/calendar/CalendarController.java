@@ -2,6 +2,9 @@ package org.tanberg.subjecttracker.gui.calendar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -25,7 +28,19 @@ public class CalendarController {
     private Text monthTitle;
 
     @FXML
+    private Button previousButton;
+
+    @FXML
+    private Button nextButton;
+
+    @FXML
     public void initialize() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        Image prevImage = new Image(classLoader.getResourceAsStream("org/tanberg/subjecttracker/icons/back.png"));
+        this.previousButton.setGraphic(new ImageView(prevImage));
+
+        Image nextImage = new Image(classLoader.getResourceAsStream("org/tanberg/subjecttracker/icons/next.png"));
+        this.nextButton.setGraphic(new ImageView(nextImage));
     }
 
     @FXML
