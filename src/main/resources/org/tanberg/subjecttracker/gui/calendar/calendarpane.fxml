@@ -12,7 +12,7 @@
             <Pane fx:id="background" prefHeight="28.0" prefWidth="55.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <Text fx:id="dateDisplay" fill="#ffffffcc" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+      <Text fx:id="dateDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>

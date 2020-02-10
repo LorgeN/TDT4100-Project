@@ -26,6 +26,5 @@ public class ParentController {
 
         this.contentPane.getItems().add(subjectListPane);
         this.contentPane.getItems().add(calendarPane);
-        this.contentPane.setDividerPosition(0, 0.3);
     }
 }

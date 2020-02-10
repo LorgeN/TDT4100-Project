@@ -1,17 +1,20 @@
 package org.tanberg.subjecttracker.subject;
 
+import java.awt.*;
+import java.util.Objects;
+
 public class Subject {
 
     private final String code;
     private final Semester semester;
     private String friendlyName;
-    private String description;
+    private Color color;
 
-    public Subject(String code, String friendlyName, String description, Semester semester) {
+    public Subject(String code, String friendlyName, Semester semester, Color color) {
         this.code = code;
         this.friendlyName = friendlyName;
-        this.description = description;
         this.semester = semester;
+        this.color = color;
     }
 
     public String getCode() {
@@ -22,19 +25,51 @@ public class Subject {
         return friendlyName;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public Semester getSemester() {
         return semester;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Subject subject = (Subject) o;
+        return Objects.equals(code, subject.code) &&
+                Objects.equals(semester, subject.semester) &&
+                Objects.equals(friendlyName, subject.friendlyName) &&
+                Objects.equals(color, subject.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, semester, friendlyName, color);
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "code='" + code + '\'' +
+                ", semester=" + semester +
+                ", friendlyName='" + friendlyName + '\'' +
+                ", color=" + color +
+                '}';
     }
 }
