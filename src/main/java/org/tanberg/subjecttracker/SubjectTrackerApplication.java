@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 public class SubjectTrackerApplication extends Application {
 
+    public static void main(String[] args) {
+        SubjectTrackerApplication.launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(this.getClass().getResource("parent.fxml"));
