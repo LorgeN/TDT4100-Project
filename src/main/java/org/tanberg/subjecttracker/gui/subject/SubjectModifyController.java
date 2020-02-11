@@ -126,9 +126,9 @@ public class SubjectModifyController {
         content.setBody(text);
 
         JFXButton cancelButton = new JFXButton("Cancel");
+        cancelButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.2);");
         JFXButton okayButton = new JFXButton("Okay");
-
-        content.getStylesheets().add("org/tanberg/subjecttracker/style/button.css");
+        okayButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.2);");
 
         JFXDialog dialog = new JFXDialog(this.dialogPane, content, JFXDialog.DialogTransition.CENTER);
 
