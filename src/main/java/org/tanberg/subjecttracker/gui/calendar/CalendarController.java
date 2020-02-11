@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import org.tanberg.subjecttracker.util.IconUtil;
 
 import java.io.IOException;
 import java.time.YearMonth;
@@ -35,12 +36,8 @@ public class CalendarController {
 
     @FXML
     public void initialize() {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        Image prevImage = new Image(classLoader.getResourceAsStream("org/tanberg/subjecttracker/icons/back.png"));
-        this.previousButton.setGraphic(new ImageView(prevImage));
-
-        Image nextImage = new Image(classLoader.getResourceAsStream("org/tanberg/subjecttracker/icons/next.png"));
-        this.nextButton.setGraphic(new ImageView(nextImage));
+        this.previousButton.setGraphic(IconUtil.getIconView("back"));
+        this.nextButton.setGraphic(IconUtil.getIconView("next"));
     }
 
     @FXML

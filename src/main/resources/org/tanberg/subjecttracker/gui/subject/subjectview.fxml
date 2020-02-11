@@ -10,12 +10,12 @@
 <AnchorPane prefHeight="50.0" prefWidth="300.0" stylesheets="@../../style/button.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.subject.SubjectViewController">
    <children>
       <Pane fx:id="background" prefHeight="40.0" prefWidth="300.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <JFXButton fx:id="viewButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#view" ripplerFill="BLACK" text="View" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="10.0">
+      <JFXButton fx:id="viewButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#viewActivities" ripplerFill="BLACK" text="View" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="10.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="editButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="249.0" layoutY="13.0" onAction="#edit" ripplerFill="BLACK" text="Edit" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
+      <JFXButton fx:id="editButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="249.0" layoutY="13.0" onAction="#editSubject" ripplerFill="BLACK" text="Edit" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
       <JFXButton fx:id="statsButton" contentDisplay="GRAPHIC_ONLY" text="Stats" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="10.0" />
       <Text fx:id="title" layoutX="3.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <font>

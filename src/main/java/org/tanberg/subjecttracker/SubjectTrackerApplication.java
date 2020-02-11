@@ -14,7 +14,12 @@ public class SubjectTrackerApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(this.getClass().getResource("parent.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("parent.fxml"));
+        Parent root = loader.load();
+
+        ParentController controller = loader.getController();
+        controller.setup(primaryStage);
+
         primaryStage.setTitle("Subject Tracker");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

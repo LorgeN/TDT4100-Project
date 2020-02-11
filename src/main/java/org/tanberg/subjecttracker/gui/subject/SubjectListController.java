@@ -4,13 +4,15 @@ import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.subject.Subject;
 import org.tanberg.subjecttracker.subject.SubjectManager;
+import org.tanberg.subjecttracker.util.IconUtil;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class SubjectListController {
@@ -21,13 +23,21 @@ public class SubjectListController {
     @FXML
     private Button addButton;
 
+    private Stage stage;
+
     @FXML
     public void initialize() {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        Image image = new Image(classLoader.getResourceAsStream("org/tanberg/subjecttracker/icons/plus.png"));
-        this.addButton.setGraphic(new ImageView(image));
-
+        this.addButton.setGraphic(IconUtil.getIconView("plus"));
         this.list.setExpanded(true);
+    }
+
+    public void rerender() {
+        this.list.getItems().clear();
+        this.setup(this.stage);
+    }
+
+    public void setup(Stage stage) {
+        this.stage = stage;
 
         SubjectManager manager = Manager.getInstance().getSubjectManager();
 
@@ -37,7 +47,7 @@ public class SubjectListController {
             try {
                 AnchorPane pane = loader.load();
                 SubjectViewController controller = loader.getController();
-                controller.setSubject(subject);
+                controller.setSubject(subject, stage, this);
 
                 this.list.getItems().add(pane);
             } catch (IOException e) {
@@ -48,6 +58,29 @@ public class SubjectListController {
 
     @FXML
     public void newSubject() {
-        // TODO
+        Popup popup = new Popup();
+
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subjectmodify.fxml"));
+
+        AnchorPane pane;
+
+        try {
+            pane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        SubjectModifyController controller = loader.getController();
+        controller.setUp(popup, this);
+
+        popup.getContent().add(pane);
+
+        Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+        popup.setX(mouseLocation.getX());
+        popup.setY(mouseLocation.getY());
+
+        popup.setAutoHide(true);
+        popup.show(this.stage);
     }
 }

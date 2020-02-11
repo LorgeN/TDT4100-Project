@@ -24,15 +24,6 @@ public class CalendarPaneController {
     @FXML
     public void initialize() {
         this.background.setStyle("-fx-background-color: rgba(28,255,0,0.75)");
-
-        /*
-        Label label = new Label("TEST");
-        label.setStyle("-fx-background-color: WHITE");
-        label.setPadding(new Insets(20));
-        JFXRippler rippler = new JFXRippler(label);
-        this.handle.getChildren().add(rippler);
-        JFXDepthManager.setDepth(rippler, 1);
-        */
     }
 
     public void disable() {

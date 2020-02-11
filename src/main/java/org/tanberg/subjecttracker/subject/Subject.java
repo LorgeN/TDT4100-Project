@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class Subject {
 
-    private final String code;
-    private final Semester semester;
+    private String code;
+    private Semester semester;
     private String friendlyName;
     private Color color;
 
@@ -31,6 +31,14 @@ public class Subject {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     public void setFriendlyName(String friendlyName) {

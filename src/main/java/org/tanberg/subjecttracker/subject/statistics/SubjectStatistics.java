@@ -60,7 +60,6 @@ public class SubjectStatistics {
     }
 
     private Stream<Activity> getSelfActivityStream() {
-        return this.getActivityManager().getActivities().stream()
-                .filter(activity -> activity.getSubject().equals(this.subject));
+        return this.getActivityManager().getActivities(this.subject);
     }
 }
