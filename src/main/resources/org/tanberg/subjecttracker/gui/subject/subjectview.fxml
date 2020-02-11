@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="50.0" prefWidth="300.0" stylesheets="@../../style/button.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.subject.SubjectViewController">
+<AnchorPane stylesheets="@../../style/button.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.subject.SubjectViewController">
    <children>
       <Pane fx:id="background" prefHeight="40.0" prefWidth="300.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <JFXButton fx:id="viewButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#viewActivities" ripplerFill="BLACK" text="View" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="10.0">
@@ -23,5 +23,6 @@
          </font>
       </Text>
       <Text fx:id="name" layoutX="71.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0" />
+      <Text fx:id="semester" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="35.0" />
    </children>
 </AnchorPane>

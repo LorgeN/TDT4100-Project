@@ -20,6 +20,10 @@ public class Semester {
         return season;
     }
 
+    public String asString() {
+        return this.getSeason().getName() + " " + this.getYear();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -49,7 +53,17 @@ public class Semester {
     }
 
     public enum SemesterSeason {
-        FALL,
-        SPRING
+        FALL("Fall"),
+        SPRING("Spring");
+
+        private final String name;
+
+        SemesterSeason(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }

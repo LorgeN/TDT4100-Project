@@ -35,6 +35,9 @@ public class SubjectViewController {
     @FXML
     private Text name;
 
+    @FXML
+    private Text semester;
+
     private Subject subject;
     private Stage stage;
     private SubjectListController listController;
@@ -49,6 +52,7 @@ public class SubjectViewController {
 
         this.title.setText(subject.getCode());
         this.name.setText(subject.getFriendlyName());
+        this.semester.setText(subject.getSemester().asString());
 
         this.editButton.setGraphic(IconUtil.getIconView("edit"));
         this.viewButton.setGraphic(IconUtil.getIconView("list"));
