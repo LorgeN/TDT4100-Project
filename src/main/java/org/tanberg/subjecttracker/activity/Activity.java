@@ -20,6 +20,8 @@ public interface Activity {
 
     Subject getSubject();
 
+    void setSubject(Subject subject);
+
     double getCompletionState();
 
     default boolean isComplete() {

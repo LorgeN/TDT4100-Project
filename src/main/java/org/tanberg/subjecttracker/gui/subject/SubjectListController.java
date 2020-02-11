@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -29,6 +30,8 @@ public class SubjectListController {
     public void initialize() {
         this.addButton.setGraphic(IconUtil.getIconView("plus"));
         this.list.setExpanded(true);
+
+        this.list.setFocusTraversable(false);
     }
 
     public void rerender() {
@@ -75,10 +78,7 @@ public class SubjectListController {
         controller.setUp(popup, this);
 
         popup.getContent().add(pane);
-
-        Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-        popup.setX(mouseLocation.getX());
-        popup.setY(mouseLocation.getY());
+        popup.centerOnScreen();
 
         popup.setAutoHide(true);
         popup.show(this.stage);

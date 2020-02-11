@@ -1,6 +1,7 @@
 package org.tanberg.subjecttracker.subject;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
+
 import java.util.Objects;
 
 public class Subject {

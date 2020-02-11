@@ -2,11 +2,11 @@ package org.tanberg.subjecttracker.subject;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import javafx.scene.paint.Color;
 import org.apache.commons.lang3.StringUtils;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.activity.ActivityManager;
 
-import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +18,12 @@ public class SubjectManager {
     public SubjectManager() {
         this.subjects = Lists.newArrayList();
 
+        // Temporary until we implement storage
         Semester semester = new Semester(2020, Semester.SemesterSeason.SPRING);
         this.addSubject(new Subject("TFE4101", "Krets", semester, Color.BLUE));
         this.addSubject(new Subject("TDT4100", "OOP", semester, Color.GREEN));
+        this.addSubject(new Subject("TMA4115", "Matte 3", semester, Color.RED));
+        this.addSubject(new Subject("TDT4180", "MMI", semester, Color.PURPLE));
 
         this.load();
     }

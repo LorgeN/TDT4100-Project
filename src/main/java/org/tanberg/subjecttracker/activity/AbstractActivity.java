@@ -34,6 +34,11 @@ public abstract class AbstractActivity implements Activity {
     }
 
     @Override
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    @Override
     public String getTitle() {
         return this.title;
     }
