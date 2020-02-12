@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.calendar.CalendarPaneController">
+<AnchorPane prefHeight="100.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.calendar.CalendarPaneController">
    <children>
       <AnchorPane fx:id="handle" prefHeight="28.0" prefWidth="54.5" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
             <Pane fx:id="background" prefHeight="28.0" prefWidth="55.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <StackPane nodeOrientation="LEFT_TO_RIGHT" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0" />
+            <JFXButton fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" ripplerFill="BLACK" stylesheets="@../../style/buttonsmall.css" text="+" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
          </children>
       </AnchorPane>
-      <Text fx:id="dateDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+      <Text fx:id="dateDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>

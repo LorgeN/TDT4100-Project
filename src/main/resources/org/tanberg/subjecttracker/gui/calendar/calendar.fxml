@@ -26,7 +26,7 @@
                            <children>
                               <Text fx:id="monthTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" textOrigin="CENTER">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="36.0" />
                                  </font>
                               </Text>
                            </children>
