@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="276.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.activity.SubjectActivityModifyController">
+<AnchorPane prefHeight="276.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tanberg.subjecttracker.gui.activity.ActivityModifyController">
    <children>
       <GridPane layoutX="94.0" layoutY="85.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
         <columnConstraints>

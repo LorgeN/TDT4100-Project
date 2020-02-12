@@ -1,4 +1,4 @@
 package org.tanberg.subjecttracker.gui.activity;
 
-public class SubjectActivityDisplayController {
+public class ActivityDisplayController {
 }
