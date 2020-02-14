@@ -18,7 +18,7 @@ public class Assignment extends AbstractActivity {
         return this.complete ? 1.0 : 0.0;
     }
 
-    public void setComplete() {
-        this.complete = true;
+    public void setComplete(boolean val) {
+        this.complete = val;
     }
 }

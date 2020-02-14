@@ -96,8 +96,16 @@ public class SubjectModifyController {
         this.saveButton.setDisable(true);
         this.deleteButton.setDisable(true);
 
-        this.codeField.textProperty().addListener((observableValue, oldVal, newVal) ->
-                this.saveButton.setDisable(StringUtils.isAnyBlank(newVal, this.nameField.getText())));
+        this.codeField.textProperty().addListener((observableValue, oldVal, newVal) -> {
+            this.saveButton.setDisable(StringUtils.isAnyBlank(newVal, this.nameField.getText()));
+
+            if (!StringUtils.isBlank(this.nameField.getText())) {
+                return;
+            }
+
+            this.nameField.setText(newVal);
+        });
+
         this.nameField.textProperty().addListener((observableValue, oldVal, newVal) ->
                 this.saveButton.setDisable(StringUtils.isAnyBlank(newVal, this.codeField.getText())));
 

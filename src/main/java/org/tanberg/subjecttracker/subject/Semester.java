@@ -1,5 +1,7 @@
 package org.tanberg.subjecttracker.subject;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class Semester {
@@ -22,6 +24,14 @@ public class Semester {
 
     public String asString() {
         return this.getSeason().getName() + " " + this.getYear();
+    }
+
+    public LocalDate getMinDate() {
+        return LocalDate.of(this.year, this.getSeason().getMinMonth() + 1, 1);
+    }
+
+    public LocalDate getMaxDate() {
+        return LocalDate.of(this.year, this.getSeason().getMaxMonth() + 1, 28);
     }
 
     @Override
@@ -53,17 +63,29 @@ public class Semester {
     }
 
     public enum SemesterSeason {
-        FALL("Fall"),
-        SPRING("Spring");
+        FALL("Fall", Calendar.AUGUST, Calendar.DECEMBER),
+        SPRING("Spring", Calendar.JANUARY, Calendar.JUNE);
 
         private final String name;
+        private final int minMonth;
+        private final int maxMonth;
 
-        SemesterSeason(String name) {
+        SemesterSeason(String name, int minMonth, int maxMonth) {
             this.name = name;
+            this.minMonth = minMonth;
+            this.maxMonth = maxMonth;
         }
 
         public String getName() {
             return name;
+        }
+
+        public int getMinMonth() {
+            return minMonth;
+        }
+
+        public int getMaxMonth() {
+            return maxMonth;
         }
     }
 }
