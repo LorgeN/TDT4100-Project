@@ -82,11 +82,6 @@ public class SubjectModifyController {
         this.dialogPane = new StackPane();
         this.background.getChildren().add(this.dialogPane);
 
-        this.background.setStyle(
-                "-fx-background-color: #fafffb; " +
-                        "-fx-background-insets: 10; " +
-                        "-fx-effect: dropshadow(three-pass-box, #000000, 5, 0, 0, 0);");
-
         this.yearSelector.setItems(FXCollections.observableList(IntStream.rangeClosed(2010, 2030).boxed().collect(Collectors.toList())));
         this.seasonSelector.setItems(FXCollections.observableList(Lists.newArrayList(Semester.SemesterSeason.values())));
 

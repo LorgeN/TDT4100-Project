@@ -4,6 +4,7 @@ import org.tanberg.subjecttracker.activity.AbstractActivity;
 import org.tanberg.subjecttracker.subject.Subject;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class Assignment extends AbstractActivity {
 
@@ -21,4 +22,6 @@ public class Assignment extends AbstractActivity {
     public void setComplete(boolean val) {
         this.complete = val;
     }
+
+
 }

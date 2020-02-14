@@ -3,6 +3,7 @@ package org.tanberg.subjecttracker.activity;
 import org.tanberg.subjecttracker.subject.Subject;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public abstract class AbstractActivity implements Activity {
 
@@ -56,5 +57,27 @@ public abstract class AbstractActivity implements Activity {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof AbstractActivity)) {
+            return false;
+        }
+
+        AbstractActivity that = (AbstractActivity) o;
+        return Objects.equals(subject, that.subject) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subject, date, title, description);
     }
 }

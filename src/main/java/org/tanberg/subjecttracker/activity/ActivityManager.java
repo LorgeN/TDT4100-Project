@@ -31,15 +31,18 @@ public class ActivityManager {
     }
 
     public Stream<Activity> getActivities(Subject subject) {
-        return this.getActivities().stream().filter(activity -> activity.getSubject().equals(subject));
+        return this.getActivities().stream().sorted()
+                .filter(activity -> activity.getSubject().equals(subject));
     }
 
     public List<Activity> getUpcomingActivities() {
-        return this.getActivities().stream().filter(Activity::isUpcoming).collect(Collectors.toList());
+        return this.getActivities().stream().sorted()
+                .filter(Activity::isUpcoming).collect(Collectors.toList());
     }
 
     public List<Activity> getExpiredActivities() {
-        return this.getActivities().stream().filter(Activity::isExpired).collect(Collectors.toList());
+        return this.getActivities().stream().sorted()
+                .filter(Activity::isExpired).collect(Collectors.toList());
     }
 
     public void addActivity(Activity activity) {

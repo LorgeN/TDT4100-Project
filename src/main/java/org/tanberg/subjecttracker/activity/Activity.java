@@ -3,8 +3,16 @@ package org.tanberg.subjecttracker.activity;
 import org.tanberg.subjecttracker.subject.Subject;
 
 import java.time.Instant;
+import java.util.Comparator;
 
-public interface Activity {
+public interface Activity extends Comparable<Activity> {
+
+    Comparator<Activity> COMPARATOR = Comparator.comparing(Activity::getDate).reversed();
+
+    @Override
+    default int compareTo(Activity o) {
+        return COMPARATOR.compare(this, o);
+    }
 
     Instant getDate();
 

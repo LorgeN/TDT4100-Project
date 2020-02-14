@@ -1,21 +1,26 @@
 package org.tanberg.subjecttracker.gui.subject;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
+import org.tanberg.subjecttracker.Manager;
+import org.tanberg.subjecttracker.activity.Activity;
+import org.tanberg.subjecttracker.activity.ActivityManager;
+import org.tanberg.subjecttracker.gui.activity.ActivityListController;
 import org.tanberg.subjecttracker.subject.Subject;
 import org.tanberg.subjecttracker.util.IconUtil;
+import org.tanberg.subjecttracker.util.PopupUtil;
 
-import java.awt.*;
-import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubjectViewController {
+
+    private static final String SUBJECT_MODIFY_FXML = "org/tanberg/subjecttracker/gui/subject/subjectmodify.fxml";
+    private static final String ACTIVITY_LIST_FXML = "org/tanberg/subjecttracker/gui/activity/activitylist.fxml";
 
     @FXML
     private Pane background;
@@ -61,36 +66,22 @@ public class SubjectViewController {
 
     @FXML
     public void editSubject() {
-        Popup popup = new Popup();
-
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subjectmodify.fxml"));
-
-        AnchorPane pane;
-
-        try {
-            pane = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        SubjectModifyController controller = loader.getController();
-        controller.fromSubject(this.subject);
-        controller.setUp(popup, this.listController);
-
-        popup.getContent().add(pane);
-
-        Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-        popup.setX(mouseLocation.getX());
-        popup.setY(mouseLocation.getY());
-
-        popup.setAutoHide(true);
-        popup.show(this.stage);
+        PopupUtil.<SubjectModifyController>createPopup(SUBJECT_MODIFY_FXML, this.stage, (popup, controller) -> {
+            controller.fromSubject(this.subject);
+            controller.setUp(popup, this.listController);
+        });
     }
 
     @FXML
     public void viewActivities() {
+        ActivityManager activityManager = Manager.getInstance().getActivityManager();
 
+        PopupUtil.<ActivityListController>createPopup(ACTIVITY_LIST_FXML, this.stage, (popup, controller) -> {
+            List<Activity> activities = activityManager.getActivities(this.subject).collect(Collectors.toList());
+            controller.setup(popup, this.stage, this.subject.getFriendlyName(), activities);
+            controller.lockSubject(this.subject);
+            controller.render();
+        });
     }
 
     @FXML

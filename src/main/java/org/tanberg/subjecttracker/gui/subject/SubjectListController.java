@@ -4,19 +4,19 @@ import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.subject.Subject;
 import org.tanberg.subjecttracker.subject.SubjectManager;
 import org.tanberg.subjecttracker.util.IconUtil;
+import org.tanberg.subjecttracker.util.PopupUtil;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class SubjectListController {
+
+    private static final String SUBJECT_MODIFY_FXML = "org/tanberg/subjecttracker/gui/subject/subjectmodify.fxml";
 
     @FXML
     private JFXListView<AnchorPane> list;
@@ -29,8 +29,8 @@ public class SubjectListController {
     @FXML
     public void initialize() {
         this.addButton.setGraphic(IconUtil.getIconView("plus"));
-        this.list.setExpanded(true);
 
+        this.list.setExpanded(true);
         this.list.setFocusTraversable(false);
     }
 
@@ -61,26 +61,7 @@ public class SubjectListController {
 
     @FXML
     public void newSubject() {
-        Popup popup = new Popup();
-
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subjectmodify.fxml"));
-
-        AnchorPane pane;
-
-        try {
-            pane = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        SubjectModifyController controller = loader.getController();
-        controller.setUp(popup, this);
-
-        popup.getContent().add(pane);
-        popup.centerOnScreen();
-
-        popup.setAutoHide(true);
-        popup.show(this.stage);
+        PopupUtil.<SubjectModifyController>createPopup(SUBJECT_MODIFY_FXML, this.stage,
+                (popup, controller) -> controller.setUp(popup, this));
     }
 }

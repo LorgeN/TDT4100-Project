@@ -16,7 +16,7 @@
          </cursor>
       </JFXButton>
       <JFXButton fx:id="editButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="249.0" layoutY="13.0" onAction="#editSubject" ripplerFill="BLACK" text="Edit" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
-      <JFXButton fx:id="statsButton" contentDisplay="GRAPHIC_ONLY" text="Stats" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="10.0" />
+      <JFXButton fx:id="statsButton" contentDisplay="GRAPHIC_ONLY" onAction="#viewStats" text="Stats" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="10.0" />
       <Text fx:id="title" layoutX="3.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="18.0" />
