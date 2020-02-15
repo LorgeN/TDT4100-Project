@@ -74,6 +74,8 @@ public class ActivityDisplayController {
 
         Color color = subject.getColor();
         this.background.setStyle(String.format("-fx-background-color: rgb(%s, %s, %s, 0.25)", color.getRed() * 255, color.getGreen() * 255, color.getBlue() * 255));
+
+        this.completeButton.setSelected(activity.isComplete());
     }
 
     public void lockSubject(Subject subject) {

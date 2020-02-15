@@ -14,7 +14,7 @@ public class Manager {
     private final SubjectManager subjectManager;
     private final ActivityManager activityManager;
 
-    public Manager() {
+    private Manager() {
         this.subjectManager = new SubjectManager();
         this.activityManager = new ActivityManager();
     }

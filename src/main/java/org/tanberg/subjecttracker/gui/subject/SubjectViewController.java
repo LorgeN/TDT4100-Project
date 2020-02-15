@@ -10,6 +10,7 @@ import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.activity.Activity;
 import org.tanberg.subjecttracker.activity.ActivityManager;
 import org.tanberg.subjecttracker.gui.activity.ActivityListController;
+import org.tanberg.subjecttracker.gui.statistics.SubjectStatisticsViewController;
 import org.tanberg.subjecttracker.subject.Subject;
 import org.tanberg.subjecttracker.util.IconUtil;
 import org.tanberg.subjecttracker.util.PopupUtil;
@@ -21,6 +22,7 @@ public class SubjectViewController {
 
     private static final String SUBJECT_MODIFY_FXML = "org/tanberg/subjecttracker/gui/subject/subjectmodify.fxml";
     private static final String ACTIVITY_LIST_FXML = "org/tanberg/subjecttracker/gui/activity/activitylist.fxml";
+    private static final String STATISTICS_VIEW_FXML = "org/tanberg/subjecttracker/gui/statistics/subjectstatsview.fxml";
 
     @FXML
     private Pane background;
@@ -86,6 +88,7 @@ public class SubjectViewController {
 
     @FXML
     public void viewStats() {
-
+        PopupUtil.<SubjectStatisticsViewController>createPopup(STATISTICS_VIEW_FXML, this.stage,
+                (popup, controller) -> controller.setUp(this.subject, popup));
     }
 }
