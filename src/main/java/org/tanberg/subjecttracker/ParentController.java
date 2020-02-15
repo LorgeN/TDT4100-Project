@@ -25,7 +25,7 @@ public class ParentController {
         subjectListController.setup(stage);
 
         CalendarController controller = calendarLoader.getController();
-        controller.setTimeNow();
+        controller.setTimeNow(stage);
 
         this.contentPane.getItems().add(subjectListPane);
         this.contentPane.getItems().add(calendarPane);

@@ -3,11 +3,11 @@ package org.tanberg.subjecttracker.gui.calendar;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.util.IconUtil;
 
 import java.io.IOException;
@@ -19,8 +19,6 @@ public class CalendarController {
 
     private static final String[] DAYS = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
-    private int year;
-    private int month;
 
     @FXML
     private GridPane grid;
@@ -34,10 +32,18 @@ public class CalendarController {
     @FXML
     private Button nextButton;
 
+    private Stage stage;
+    private int year;
+    private int month;
+
     @FXML
     public void initialize() {
         this.previousButton.setGraphic(IconUtil.getIconView("back"));
         this.nextButton.setGraphic(IconUtil.getIconView("next"));
+
+        Manager instance = Manager.getInstance();
+        instance.getActivityManager().listen(this::render);
+        instance.getSubjectManager().listen(this::render);
     }
 
     @FXML
@@ -49,7 +55,7 @@ public class CalendarController {
             year++;
         }
 
-        this.setTime(year, month);
+        this.setTime(this.stage, year, month);
     }
 
     @FXML
@@ -61,18 +67,25 @@ public class CalendarController {
             year--;
         }
 
-        this.setTime(year, month);
+        this.setTime(this.stage, year, month);
     }
 
-    public void setTimeNow() {
+    public void setTimeNow(Stage stage) {
         Calendar calendar = Calendar.getInstance();
-        this.setTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
+        this.setTime(stage, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
     }
 
-    public void setTime(int year, int month) {
+    public void setTime(Stage stage, int year, int month) {
+        this.stage = stage;
         this.year = year;
         this.month = month;
 
+        this.render();
+    }
+
+    // Internals
+
+    private void render() {
         this.monthTitle.setText(this.getMonthName() + " " + this.year);
         this.grid.getChildren().clear();
 
@@ -111,7 +124,7 @@ public class CalendarController {
                 AnchorPane pane = loader.load();
 
                 CalendarPaneController controller = loader.getController();
-                controller.setTime(this.year, this.month - 1, day);
+                controller.setTime(this.stage, this.year, this.month - 1, day);
                 controller.disable();
 
                 this.grid.add(pane, column, 1);
@@ -140,7 +153,7 @@ public class CalendarController {
                 AnchorPane pane = loader.load();
 
                 CalendarPaneController controller = loader.getController();
-                controller.setTime(this.year, this.month, day);
+                controller.setTime(this.stage, this.year, this.month, day);
 
                 this.grid.add(pane, column, week + (startsMonday ? 1 : 0));
             } catch (IOException e) {
@@ -168,7 +181,7 @@ public class CalendarController {
                 AnchorPane pane = loader.load();
 
                 CalendarPaneController controller = loader.getController();
-                controller.setTime(this.year, this.month, day);
+                controller.setTime(this.stage, this.year, this.month, day);
                 controller.disable();
 
                 this.grid.add(pane, column, row);
@@ -177,8 +190,6 @@ public class CalendarController {
             }
         }
     }
-
-    // Internals
 
     private AnchorPane getLabel(String day) {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("columnlabel.fxml"));

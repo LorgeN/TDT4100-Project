@@ -6,12 +6,13 @@ import javafx.scene.paint.Color;
 import org.apache.commons.lang3.StringUtils;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.activity.ActivityManager;
+import org.tanberg.subjecttracker.util.Listenable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SubjectManager {
+public class SubjectManager extends Listenable {
 
     private final List<Subject> subjects;
 
@@ -56,6 +57,7 @@ public class SubjectManager {
     public void addSubject(Subject subject) {
         this.subjects.add(subject);
         this.save();
+        this.runListeners();
     }
 
     public void removeSubject(Subject subject) {
@@ -64,5 +66,7 @@ public class SubjectManager {
 
         ActivityManager activityManager = Manager.getInstance().getActivityManager();
         activityManager.getActivities(subject).forEach(activityManager::removeActivity);
+
+        this.runListeners();
     }
 }

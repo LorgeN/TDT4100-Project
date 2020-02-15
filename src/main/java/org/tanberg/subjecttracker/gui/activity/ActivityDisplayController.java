@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.tanberg.subjecttracker.activity.Activity;
 import org.tanberg.subjecttracker.activity.assignment.Assignment;
 import org.tanberg.subjecttracker.subject.Subject;
@@ -60,6 +61,7 @@ public class ActivityDisplayController {
         this.title.setText(activity.getTitle());
 
         Tooltip tooltip = new Tooltip();
+        tooltip.setShowDelay(Duration.seconds(1));
         tooltip.setWrapText(true);
         tooltip.setWidth(300.0d);
         tooltip.setTextAlignment(TextAlignment.LEFT);
@@ -83,7 +85,7 @@ public class ActivityDisplayController {
         this.editButton.setDisable(true);
 
         PopupUtil.<ActivityModifyController>createPopup(ACTIVITY_MODIFY_FXML, this.stage, (popup, controller) -> {
-            controller.setUp(popup, this.listController);
+            controller.setUp(popup, (activity, remove) -> this.listController.rerender(activity, remove));
             controller.fromActivity(this.activity);
             controller.lockSubject(this.subject);
         });

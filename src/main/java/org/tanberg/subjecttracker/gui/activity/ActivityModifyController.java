@@ -20,6 +20,7 @@ import org.tanberg.subjecttracker.subject.Subject;
 import org.tanberg.subjecttracker.util.IconUtil;
 
 import java.time.*;
+import java.util.function.BiConsumer;
 
 public class ActivityModifyController {
 
@@ -47,7 +48,7 @@ public class ActivityModifyController {
     private DateTimePicker datePicker;
     private Popup popup;
     private Activity handle;
-    private ActivityListController listController;
+    private BiConsumer<Activity, Boolean> updateFunction;
 
     @FXML
     public void initialize() {
@@ -63,6 +64,7 @@ public class ActivityModifyController {
         this.saveButton.setDisable(true);
         this.deleteButton.setDisable(true);
 
+        this.datePicker.setDateTimeValue(LocalDateTime.now());
         this.datePicker.setDisable(true);
 
         this.subjectSelector.setConverter(new SubjectStringConverter());
@@ -82,30 +84,47 @@ public class ActivityModifyController {
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
 
-                        if (item.isBefore(minDate)) {
-                            this.setDisable(true);
-                            this.setStyle("-fx-background-color: #ffc0cb;");
-                        } else if (item.isAfter(maxDate)) {
-                            this.setDisable(true);
-                            this.setStyle("-fx-background-color: #ffc0cb;");
+                        if (!item.isBefore(minDate) && !item.isAfter(maxDate)) {
+                            return;
                         }
+
+                        this.setDisable(true);
+                        this.setStyle("-fx-background-color: #ffc0cb;");
                     }
                 };
             }
         });
 
         this.titleField.textProperty().addListener((value, oldVal, newVal) ->
-                this.saveButton.setDisable(StringUtils.isBlank(newVal) || StringUtils.isBlank(this.descriptionArea.getText())));
+                this.saveButton.setDisable(StringUtils.isBlank(newVal)
+                        || StringUtils.isBlank(this.descriptionArea.getText())
+                        || this.datePicker.getDateTimeValue() == null
+                        || this.subjectSelector.getSelectionModel().isEmpty()));
 
         this.descriptionArea.textProperty().addListener((value, oldVal, newVal) ->
-                this.saveButton.setDisable(StringUtils.isBlank(newVal) || StringUtils.isBlank(this.titleField.getText())));
+                this.saveButton.setDisable(StringUtils.isBlank(newVal)
+                        || StringUtils.isBlank(this.titleField.getText())
+                        || this.datePicker.getDateTimeValue() == null
+                        || this.subjectSelector.getSelectionModel().isEmpty()));
+
+        this.datePicker.dateTimeValueProperty().addListener((value, oldVal, newVal) ->
+                this.saveButton.setDisable(StringUtils.isBlank(this.titleField.getText())
+                        || StringUtils.isBlank(this.titleField.getText())
+                        || this.subjectSelector.getSelectionModel().isEmpty()));
+
+        this.subjectSelector.valueProperty().addListener((value, oldVal, newVal) ->
+                this.saveButton.setDisable(StringUtils.isBlank(this.titleField.getText())
+                        || StringUtils.isBlank(this.titleField.getText())
+                        || this.datePicker.getDateTimeValue() == null));
     }
 
-    public void setUp(Popup popup, ActivityListController controller) {
+    public void setUp(Popup popup, BiConsumer<Activity, Boolean> updateFunction) {
         this.popup = popup;
-        this.listController = controller;
+        this.updateFunction = updateFunction;
+    }
 
-        this.datePicker.setDateTimeValue(LocalDateTime.now());
+    public void setDate(LocalDateTime time) {
+        this.datePicker.setDateTimeValue(time);
     }
 
     public void fromActivity(Activity handle) {
@@ -117,6 +136,8 @@ public class ActivityModifyController {
         this.datePicker.setDateTimeValue(LocalDateTime.ofInstant(handle.getDate(), ZoneId.systemDefault()));
 
         this.deleteButton.setDisable(false);
+        this.datePicker.setDisable(false);
+        this.subjectSelector.setDisable(false);
     }
 
     public void lockSubject(Subject subject) {
@@ -137,7 +158,7 @@ public class ActivityModifyController {
     @FXML
     public void close() {
         this.popup.hide();
-        this.listController.rerender(null, false);
+        this.updateFunction.accept(null, false);
     }
 
     @FXML
@@ -150,7 +171,7 @@ public class ActivityModifyController {
         activityManager.removeActivity(this.handle);
 
         this.popup.hide();
-        this.listController.rerender(this.handle, true);
+        this.updateFunction.accept(this.handle, true);
     }
 
     @FXML
@@ -169,7 +190,7 @@ public class ActivityModifyController {
             this.handle.setDescription(desc);
 
             this.popup.hide();
-            this.listController.rerender(null, false);
+            this.updateFunction.accept(null, false);
             return;
         }
 
@@ -179,7 +200,7 @@ public class ActivityModifyController {
         activityManager.addActivity(assignment);
 
         this.popup.hide();
-        this.listController.rerender(assignment, false);
+        this.updateFunction.accept(assignment, false);
     }
 
     private static class SubjectStringConverter extends StringConverter<Subject> {

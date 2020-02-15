@@ -55,7 +55,7 @@ public class ActivityListController {
         double x = this.popup.getX();
         double y = this.popup.getY();
         PopupUtil.<ActivityModifyController>createPopup(ACTIVITY_MODIFY_FXML, x, y, this.stage, (popup, controller) -> {
-            controller.setUp(popup, this);
+            controller.setUp(popup, this::rerender);
             controller.lockSubject(this.subject);
         });
     }

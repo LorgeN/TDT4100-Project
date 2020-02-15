@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -12,8 +13,13 @@
       <AnchorPane fx:id="handle" prefHeight="28.0" prefWidth="54.5" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
             <Pane fx:id="background" prefHeight="28.0" prefWidth="55.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <BorderPane prefHeight="90.0" prefWidth="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <center>
+                  <JFXButton fx:id="listButton" alignment="CENTER" contentDisplay="CENTER" onAction="#viewActivityList" stylesheets="@../../style/button.css" text="COUNT" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
             <StackPane nodeOrientation="LEFT_TO_RIGHT" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0" />
-            <JFXButton fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" ripplerFill="BLACK" stylesheets="@../../style/buttonsmall.css" text="+" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <JFXButton fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" onAction="#createNewActivity" ripplerFill="BLACK" stylesheets="@../../style/buttonsmall.css" text="+" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
          </children>
       </AnchorPane>
       <Text fx:id="dateDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="44.13671875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
