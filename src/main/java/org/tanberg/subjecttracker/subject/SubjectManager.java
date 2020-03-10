@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import org.apache.commons.lang3.StringUtils;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.activity.ActivityManager;
+import org.tanberg.subjecttracker.storage.StorageManager;
 import org.tanberg.subjecttracker.util.Listenable;
 
 import java.util.Collection;
@@ -14,27 +15,33 @@ import java.util.stream.Collectors;
 
 public class SubjectManager extends Listenable {
 
+    private final StorageManager storageManager;
     private final List<Subject> subjects;
 
-    public SubjectManager() {
+    public SubjectManager(StorageManager storageManager) {
+        this.storageManager = storageManager;
         this.subjects = Lists.newArrayList();
-
-        // Temporary until we implement storage
-        Semester semester = new Semester(2020, Semester.SemesterSeason.SPRING);
-        this.addSubject(new Subject("TFE4101", "Krets", semester, Color.BLUE));
-        this.addSubject(new Subject("TDT4100", "OOP", semester, Color.GREEN));
-        this.addSubject(new Subject("TMA4115", "Matte 3", semester, Color.RED));
-        this.addSubject(new Subject("TDT4180", "MMI", semester, Color.PURPLE));
 
         this.load();
     }
 
     public void load() {
-        // TODO: Load from file
+        this.subjects.clear();
+        this.subjects.addAll(this.storageManager.loadSubjects());
+
+        if (!this.subjects.isEmpty()) {
+            return;
+        }
+
+        Semester semester = new Semester(2020, Semester.SemesterSeason.SPRING);
+        this.addSubject(new Subject("TFE4101", "Krets", semester, Color.BLUE));
+        this.addSubject(new Subject("TDT4100", "OOP", semester, Color.GREEN));
+        this.addSubject(new Subject("TMA4115", "Matte 3", semester, Color.RED));
+        this.addSubject(new Subject("TDT4180", "MMI", semester, Color.PURPLE));
     }
 
     public void save() {
-        // TODO: Save to file
+        this.storageManager.saveSubjects(this.getSubjects());
     }
 
     public Collection<Subject> getSubjects() {

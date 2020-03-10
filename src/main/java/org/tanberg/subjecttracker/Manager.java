@@ -1,6 +1,8 @@
 package org.tanberg.subjecttracker;
 
 import org.tanberg.subjecttracker.activity.ActivityManager;
+import org.tanberg.subjecttracker.storage.StorageManager;
+import org.tanberg.subjecttracker.storage.gson.GSONStorageManager;
 import org.tanberg.subjecttracker.subject.SubjectManager;
 
 public class Manager {
@@ -15,8 +17,9 @@ public class Manager {
     private final ActivityManager activityManager;
 
     private Manager() {
-        this.subjectManager = new SubjectManager();
-        this.activityManager = new ActivityManager();
+        StorageManager storageManager = new GSONStorageManager();
+        this.subjectManager = new SubjectManager(storageManager);
+        this.activityManager = new ActivityManager(storageManager);
     }
 
     public SubjectManager getSubjectManager() {

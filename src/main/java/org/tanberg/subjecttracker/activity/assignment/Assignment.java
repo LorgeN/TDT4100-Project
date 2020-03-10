@@ -14,6 +14,11 @@ public class Assignment extends AbstractActivity {
         super(subject, date, title, description);
     }
 
+    public Assignment(Subject subject, Instant date, String title, String description, boolean complete) {
+        super(subject, date, title, description);
+        this.complete = complete;
+    }
+
     @Override
     public double getCompletionState() {
         return this.complete ? 1.0 : 0.0;
@@ -22,6 +27,4 @@ public class Assignment extends AbstractActivity {
     public void setComplete(boolean val) {
         this.complete = val;
     }
-
-
 }

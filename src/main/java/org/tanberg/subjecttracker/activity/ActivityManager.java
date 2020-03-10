@@ -2,6 +2,7 @@ package org.tanberg.subjecttracker.activity;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import org.tanberg.subjecttracker.storage.StorageManager;
 import org.tanberg.subjecttracker.subject.Subject;
 import org.tanberg.subjecttracker.util.Listenable;
 
@@ -15,20 +16,23 @@ import java.util.stream.Stream;
 
 public class ActivityManager extends Listenable {
 
+    private final StorageManager storageManager;
     private final List<Activity> activities;
 
-    public ActivityManager() {
+    public ActivityManager(StorageManager storageManager) {
+        this.storageManager = storageManager;
         this.activities = Lists.newArrayList();
 
         this.load();
     }
 
     public void load() {
-        // TODO: Load from file
+        this.activities.clear();
+        this.activities.addAll(this.storageManager.loadActivities());
     }
 
     public void save() {
-        // TODO: Save to file
+        this.storageManager.saveActivities(this.getActivities());
     }
 
     public List<Activity> getActivities() {
