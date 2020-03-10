@@ -4,13 +4,11 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import javafx.scene.paint.Color;
 import org.tanberg.subjecttracker.activity.Activity;
 import org.tanberg.subjecttracker.storage.StorageManager;
 import org.tanberg.subjecttracker.subject.Subject;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
