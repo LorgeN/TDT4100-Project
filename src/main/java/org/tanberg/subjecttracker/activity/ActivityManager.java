@@ -22,8 +22,6 @@ public class ActivityManager extends Listenable {
     public ActivityManager(StorageManager storageManager) {
         this.storageManager = storageManager;
         this.activities = Lists.newArrayList();
-
-        this.load();
     }
 
     public void load() {

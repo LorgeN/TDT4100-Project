@@ -11,6 +11,10 @@ public class Subject {
     private String friendlyName;
     private Color color;
 
+    @Deprecated
+    public Subject() {
+    }
+
     public Subject(String code, String friendlyName, Semester semester, Color color) {
         this.code = code;
         this.friendlyName = friendlyName;

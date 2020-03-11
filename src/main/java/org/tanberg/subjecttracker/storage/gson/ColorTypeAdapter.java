@@ -24,6 +24,7 @@ public class ColorTypeAdapter extends TypeAdapter<Color> {
         double red = jsonReader.nextDouble();
         double green = jsonReader.nextDouble();
         double blue = jsonReader.nextDouble();
+        jsonReader.endArray();
         return Color.color(red, green, blue);
     }
 }

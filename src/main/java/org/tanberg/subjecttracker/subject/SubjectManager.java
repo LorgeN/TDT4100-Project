@@ -21,8 +21,6 @@ public class SubjectManager extends Listenable {
     public SubjectManager(StorageManager storageManager) {
         this.storageManager = storageManager;
         this.subjects = Lists.newArrayList();
-
-        this.load();
     }
 
     public void load() {

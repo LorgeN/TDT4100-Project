@@ -1,7 +1,10 @@
 package org.tanberg.subjecttracker.storage.gson;
 
+import com.google.common.collect.Maps;
+import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.activity.Activity;
@@ -11,6 +14,7 @@ import org.tanberg.subjecttracker.subject.SubjectManager;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Map;
 
 public class ActivityTypeAdapter extends TypeAdapter<Activity> {
 
@@ -42,45 +46,63 @@ public class ActivityTypeAdapter extends TypeAdapter<Activity> {
 
     @Override
     public Activity read(JsonReader reader) throws IOException {
-        reader.beginObject();
-        String type = reader.nextString();
-        reader.endObject();
-
         SubjectManager subjectManager = Manager.getInstance().getSubjectManager();
+        String type = null;
+        Subject subject = null;
+        Instant time = null;
+        String title = null;
+        String desc = null;
 
-        // Subject
-        reader.beginObject();
-        String subjectCode = reader.nextString();
-        reader.endObject();
-        Subject subject = subjectManager.getSubject(subjectCode);
-        if (subject == null) {
-            throw new IOException("Could not find subject \"" + subjectCode + "\"!");
+        Map<String, Object> elements = Maps.newHashMap();
+
+        while (reader.hasNext()) {
+            reader.beginObject();
+            String name = reader.nextName().toLowerCase();
+
+            switch (name) {
+                case "type":
+                    type = reader.nextString();
+                    break;
+                case "subject":
+                    String subjectCode = reader.nextString();
+                    subject = subjectManager.getSubject(subjectCode);
+                    if (subject == null) {
+                        throw new IOException("Invalid subject \"" + subjectCode + "\"!");
+                    }
+
+                    break;
+                case "date":
+                    time = Instant.ofEpochMilli(reader.nextLong());
+                    break;
+                case "title":
+                    title = reader.nextString();
+                    break;
+                case "description":
+                    desc = reader.nextString();
+                    break;
+                default:
+                    JsonToken peek = reader.peek();
+                    if (peek == JsonToken.BOOLEAN) {
+                        elements.put(name, reader.nextBoolean());
+                    } else {
+                        throw new IllegalStateException("Unexpected value: " + peek);
+                    }
+                    break;
+            }
+
+            reader.endObject();
         }
 
-        // Time
-        reader.beginObject();
-        long epochMilli = reader.nextLong();
-        reader.endObject();
-        Instant time = Instant.ofEpochMilli(epochMilli);
+        if (type == null || subject == null || time == null || title == null || desc == null) {
+            throw new IOException("Malformed activity");
+        }
 
-        reader.beginObject();
-        String title = reader.nextString();
-        reader.endObject();
-
-        reader.beginObject();
-        String desc = reader.nextString();
-        reader.endObject();
-
-        // Use switch for future expandability
         switch (type) {
             case ASSIGNMENT_TYPE:
-                reader.beginObject();
-                boolean complete = reader.nextBoolean();
-                reader.endObject();
-
+                boolean complete = (boolean) elements.get("complete");
                 return new Assignment(subject, time, title, desc, complete);
         }
 
-        throw new IOException("Activty \"" + type + "\" not supported!");
+        throw new IOException("Invalid type \"" + type + "\"");
     }
 }

@@ -7,7 +7,13 @@ import org.tanberg.subjecttracker.subject.SubjectManager;
 
 public class Manager {
 
-    private static final Manager MANAGER = new Manager();
+    private static final Manager MANAGER;
+
+    static {
+        MANAGER = new Manager();
+        MANAGER.getSubjectManager().load();
+        MANAGER.getActivityManager().load();
+    }
 
     public static Manager getInstance() {
         return MANAGER;
