@@ -11,3 +11,5 @@ buildNumber.properties
 .idea
 *.iml
 !.idea/runConfigurations
+activities.json
+subjects.json
