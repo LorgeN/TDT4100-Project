@@ -46,6 +46,10 @@ public class SubjectManager extends Listenable {
         return ImmutableList.copyOf(this.subjects);
     }
 
+    public Collection<Subject> getSubjectsMutable() {
+        return this.subjects;
+    }
+
     public Collection<Subject> search(String str) {
         return this.getSubjects().stream()
                 .filter(subject -> StringUtils.containsIgnoreCase(subject.getCode(), str)

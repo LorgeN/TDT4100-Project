@@ -9,6 +9,7 @@ import org.tanberg.subjecttracker.activity.Activity;
 import org.tanberg.subjecttracker.activity.assignment.Assignment;
 import org.tanberg.subjecttracker.storage.StorageManager;
 import org.tanberg.subjecttracker.subject.Subject;
+import org.tanberg.subjecttracker.subject.SubjectManager;
 
 import java.io.File;
 import java.io.FileReader;
@@ -21,15 +22,15 @@ public class GSONStorageManager implements StorageManager {
     private static final String SUBJECT_FILE = "subjects.json";
     private static final String ACTIVITY_FILE = "activities.json";
 
-    private final Gson gson;
+    private Gson gson;
 
-    public GSONStorageManager() {
+    public void setUp(SubjectManager manager) {
         this.gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(Activity.class, new ActivityTypeAdapter())
-                .registerTypeAdapter(Assignment.class, new ActivityTypeAdapter())
-                .registerTypeAdapter(Color.class, new ColorTypeAdapter())
-                .create();
+          .setPrettyPrinting()
+          .registerTypeAdapter(Activity.class, new ActivityTypeAdapter(manager))
+          .registerTypeAdapter(Assignment.class, new ActivityTypeAdapter(manager))
+          .registerTypeAdapter(Color.class, new ColorTypeAdapter())
+          .create();
     }
 
     @Override

@@ -69,15 +69,25 @@ public abstract class AbstractActivity implements Activity {
             return false;
         }
 
-        AbstractActivity that = (AbstractActivity) o;
-        return Objects.equals(subject, that.subject) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(description, that.description);
+        AbstractActivity activity = (AbstractActivity) o;
+        return subject.equals(activity.subject) &&
+          date.equals(activity.date) &&
+          title.equals(activity.title) &&
+          description.equals(activity.description);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(subject, date, title, description);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+          "subject=" + subject +
+          ", date=" + date +
+          ", title='" + title + '\'' +
+          ", description='" + description + '\'' +
+          '}';
     }
 }

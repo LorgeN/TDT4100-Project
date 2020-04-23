@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -35,6 +36,10 @@ public class ActivityManager extends Listenable {
 
     public List<Activity> getActivities() {
         return ImmutableList.copyOf(this.activities);
+    }
+
+    public Collection<Activity> getActivitesMutable() {
+        return this.activities;
     }
 
     public Stream<Activity> getActivities(Subject subject) {

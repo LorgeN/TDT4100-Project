@@ -1,12 +1,10 @@
 package org.tanberg.subjecttracker.storage.gson;
 
 import com.google.common.collect.Maps;
-import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import org.tanberg.subjecttracker.Manager;
 import org.tanberg.subjecttracker.activity.Activity;
 import org.tanberg.subjecttracker.activity.assignment.Assignment;
 import org.tanberg.subjecttracker.subject.Subject;
@@ -20,6 +18,12 @@ public class ActivityTypeAdapter extends TypeAdapter<Activity> {
 
     private static final String ASSIGNMENT_TYPE = "assignment";
 
+    private final SubjectManager subjectManager;
+
+    public ActivityTypeAdapter(SubjectManager subjectManager) {
+        this.subjectManager = subjectManager;
+    }
+
     @Override
     public void write(JsonWriter writer, Activity activity) throws IOException {
         String type = null;
@@ -31,22 +35,24 @@ public class ActivityTypeAdapter extends TypeAdapter<Activity> {
             throw new IOException("Activty \"" + activity.getClass().getName() + "\" not supported!");
         }
 
-        writer.beginObject().name("type").value(ASSIGNMENT_TYPE).endObject()
-                .beginObject().name("subject").value(activity.getSubject().getCode()).endObject()
-                .beginObject().name("date").value(activity.getDate().toEpochMilli()).endObject()
-                .beginObject().name("title").value(activity.getTitle()).endObject()
-                .beginObject().name("description").value(activity.getDescription()).endObject();
+        writer.beginObject()
+          .name("type").value(ASSIGNMENT_TYPE)
+          .name("subject").value(activity.getSubject().getCode())
+          .name("date").value(activity.getDate().toEpochMilli())
+          .name("title").value(activity.getTitle())
+          .name("description").value(activity.getDescription());
 
         // Not needed for now but keep it here for future expandability
         switch (type) {
             case ASSIGNMENT_TYPE:
-                writer.beginObject().name("complete").value(activity.isComplete()).endObject();
+                writer.name("complete").value(activity.isComplete());
         }
+
+        writer.endObject();
     }
 
     @Override
     public Activity read(JsonReader reader) throws IOException {
-        SubjectManager subjectManager = Manager.getInstance().getSubjectManager();
         String type = null;
         Subject subject = null;
         Instant time = null;
@@ -55,8 +61,9 @@ public class ActivityTypeAdapter extends TypeAdapter<Activity> {
 
         Map<String, Object> elements = Maps.newHashMap();
 
+        reader.beginObject();
+
         while (reader.hasNext()) {
-            reader.beginObject();
             String name = reader.nextName().toLowerCase();
 
             switch (name) {
@@ -65,7 +72,7 @@ public class ActivityTypeAdapter extends TypeAdapter<Activity> {
                     break;
                 case "subject":
                     String subjectCode = reader.nextString();
-                    subject = subjectManager.getSubject(subjectCode);
+                    subject = this.subjectManager.getSubject(subjectCode);
                     if (subject == null) {
                         throw new IOException("Invalid subject \"" + subjectCode + "\"!");
                     }
@@ -89,9 +96,9 @@ public class ActivityTypeAdapter extends TypeAdapter<Activity> {
                     }
                     break;
             }
-
-            reader.endObject();
         }
+
+        reader.endObject();
 
         if (type == null || subject == null || time == null || title == null || desc == null) {
             throw new IOException("Malformed activity");
